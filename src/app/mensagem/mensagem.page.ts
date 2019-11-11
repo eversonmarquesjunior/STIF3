@@ -12,8 +12,14 @@ import { Router } from '@angular/router';
 })
 export class MensagemPage implements OnInit {
   aviso : Aviso = new Aviso();
+  listaContatos: Observable<any[]>;
+  listaFiltro: any[];
+  filtro = {}; //regras ativas do filtro
+  relato: any;
+  valor: string;
 
-  constructor(private banco : AngularFireDatabase, private autenticacao : AngularFireAuth, private warn : AlertController, private router : Router) { 
+  constructor(private banco : AngularFireDatabase, private autenticacao : AngularFireAuth, private warn : AlertController, private router : Router) {
+
     this.aviso.adm.nome = this.autenticacao.auth.currentUser.email;
   }
 
@@ -33,7 +39,7 @@ export class MensagemPage implements OnInit {
       },{
         text : 'Não'
       }]
-      
+
     });
     await alert.present();
   }

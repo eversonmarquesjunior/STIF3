@@ -6,19 +6,19 @@
 
 <ion-content>
 
-  <ion-text><h1>Cpf do receptor :</h1></ion-text><br>
-  <ion-input [(ngModel)] = "aviso.cpf_receptor"></ion-input>
+  <ion-searchbar [(ngModel)]="aviso.mensagem" (ionChange)="filtrar()"></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let aviso of listaFiltro">
 
-  <ion-text><h1>Digite a mensagem :</h1></ion-text><br>
-  <ion-textarea placeholder = "Digite a mensagem aqui" [(ngModel)] = "aviso.mensagem"></ion-textarea>
+        <ion-label>{{aviso.mensagem}}</ion-label>
+      <br>
 
-  <ion-button expand="block" color="warning" (click) = "enviarMensagem()">
-    <ion-text color="dark"> Pronto </ion-text>
-  </ion-button>
-
-
-  
+        <ion-button color="danger" (click)='excluir(aviso.mensagem)'><ion-icon name="close-circle"></ion-icon></ion-button>
 
 
+
+    </ion-item>
+  </ion-list>
+  <ion-button  expand="block" color="primary" href="home">Voltar</ion-button>
 
 </ion-content>
