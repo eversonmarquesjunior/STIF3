@@ -1,47 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import {Aviso} from '../aviso/aviso';
-import { AngularFireDatabase} from '@angular/fire/database';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
+import { Aviso } from '../aviso/aviso';
+import { map } from 'rxjs/operators'
+
+import { Router, NavigationExtras } from '@angular/router';
+import * as _ from 'lodash';
+import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-mensagem',
   templateUrl: './mensagem.page.html',
   styleUrls: ['./mensagem.page.scss'],
 })
 export class MensagemPage implements OnInit {
-  aviso : Aviso = new Aviso();
-  listaContatos: Observable<any[]>;
-  listaFiltro: any[];
-  filtro = {}; //regras ativas do filtro
-  relato: any;
-  valor: string;
 
-  constructor(private banco : AngularFireDatabase, private autenticacao : AngularFireAuth, private warn : AlertController, private router : Router) {
 
-    this.aviso.adm.nome = this.autenticacao.auth.currentUser.email;
-  }
+ listaDiario: Observable<Aviso[]>;
+ constructor(private fire: AngularFireDatabase, private rota : Router) {
+   this.listaDiario = this.fire.list<Aviso>('aviso').snapshotChanges().pipe(
+     map(lista => lista.map(linha => ({
+       key: linha.payload.key, ...linha.payload.val()
+     })))
+   );
 
-  ngOnInit() {
-  }
-
-  async enviarMensagem(){
-    const alert = await this.warn.create({
-      header : 'Aviso',
-      message : 'Tem certeza que quer enviar?',
-      buttons : [{
-        text : 'Sim',
-        handler : () =>{
-          this.banco.list("Mensagem").push(this.aviso);
-          this.router.navigate(['destino']);
-        }
-      },{
-        text : 'Não'
-      }]
-
-    });
-    await alert.present();
-  }
+ }
+ ngOnInit() {
+ }
 
 }
