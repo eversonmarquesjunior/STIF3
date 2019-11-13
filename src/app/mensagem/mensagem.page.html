@@ -7,13 +7,13 @@
 <ion-content>
 
 
-  <ion-list *ngFor="let aviso of listaDiario | async">
+  <ion-list *ngFor="let aviso of listaAvisos | async">
     <ion-item >
-
-      <ion-label> isso aí {{aviso.mensagem}}</ion-label>
+      <ion-label>{{aviso.adm.nome}}</ion-label>
+      <ion-label>{{aviso.mensagem}}</ion-label>
       <br>
 
-      <ion-button color="danger" (click)='excluir(aviso.mensagem)'>
+      <ion-button color="danger" (click)='excluir(aviso)'>
         <ion-icon name="close-circle"></ion-icon>
       </ion-button>
 

@@ -15,16 +15,17 @@ import { ModalController } from '@ionic/angular';
 })
 export class MensagemPage implements OnInit {
 
+listaAvisos : Observable<Aviso[]>;
 
- listaDiario: Observable<Aviso[]>;
+ 
  constructor(private fire: AngularFireDatabase, private rota : Router) {
-   this.listaDiario = this.fire.list<Aviso>('aviso').snapshotChanges().pipe(
-     map(lista => lista.map(linha => ({
-       key: linha.payload.key, ...linha.payload.val()
-     })))
-   );
-
+  this.listaAvisos = this.fire.list<Aviso>('Mensagem').snapshotChanges().pipe(
+    map( lista => lista.map(linha => ({key : linha.payload.key, ... linha.payload.val()}))
+  ))
  }
+  excluir(aviso){
+    this.fire.list('Mensagem').remove(aviso.key)
+  }
  ngOnInit() {
  }
 
