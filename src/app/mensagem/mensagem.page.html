@@ -13,10 +13,13 @@
       <ion-label>{{aviso.mensagem}}</ion-label>
       <br>
 
-      <ion-button color="danger" (click)='excluir(aviso)'>
+      <ion-button color="danger" (click)= 'excluir(aviso)'>
         <ion-icon name="close-circle"></ion-icon>
       </ion-button>
-
+      <ion-button color="danger" (click) = "expandirMensagem(aviso)">
+          <ion-icon name="expand"></ion-icon>
+        </ion-button>
+  
 
 
     </ion-item>
