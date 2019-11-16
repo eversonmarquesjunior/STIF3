@@ -10,10 +10,11 @@ import {AngularFireModule} from  '@angular/fire';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {PaginaComponent} from './pagina/pagina.component';
+import { SolicitacaoComponent } from './solicitacao/solicitacao.component';
 
 
 @NgModule({
-  declarations: [AppComponent,PaginaComponent],
+  declarations: [AppComponent,PaginaComponent,SolicitacaoComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AngularFireDatabaseModule, AngularFireModule.initializeApp(
     {

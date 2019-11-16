@@ -6,4 +6,5 @@ export class Aviso{
     cpf_receptor : string;
     adm : Adm = new Adm();
     key : any;
+    tipo : string;
 }

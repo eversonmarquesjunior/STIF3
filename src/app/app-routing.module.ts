@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {PaginaComponent} from './pagina/pagina.component';
+import { SolicitacaoComponent } from './solicitacao/solicitacao.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)},
@@ -8,6 +9,7 @@ const routes: Routes = [
   { path: 'destino', loadChildren: './destino/destino.module#DestinoPageModule' },
   { path: 'mensagem', loadChildren: './mensagem/mensagem.module#MensagemPageModule' },
   { path: 'pagina', component : PaginaComponent },
+  { path : 'solicitacao', component : SolicitacaoComponent}
   
 ];
 

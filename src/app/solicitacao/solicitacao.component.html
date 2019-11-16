@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>STIF</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<h1>Solicitação de Liberação</h1> <br>
+<h6>Solicitação feita por : {{remetente}} (sessão pedagógica)</h6><br>
+<h5>{{mensagem}}</h5> <br>
+<h5>Preencha os campos abaixo</h5><br>
+<h6>Eu <ion-input placeholder = "Insira seu nome completo aqui"></ion-input>, portador do RG ou CPF <ion-input placeholder = "Insira o CPF ou RG aqui"></ion-input>, autorizo o matriculado(a) do <ion-input placeholder = "Insira o ano"></ion-input> ano 
+  do curso técnico em <ion-input placeholder = "Insira o nome do Curso"></ion-input>
+</h6>
+<h6>Grau de parentesco <ion-input placeholder = "Insira o grau de parentesco"></ion-input></h6>
+
+<!-- Falta colocar o resto que nem está na folha que o pessoal da sessão mandou -->
+<ion-button (click) = "fechar()">Enviar</ion-button>
+</ion-content>
