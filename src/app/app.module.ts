@@ -11,12 +11,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import {PaginaComponent} from './pagina/pagina.component';
 import { SolicitacaoComponent } from './solicitacao/solicitacao.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
   declarations: [AppComponent,PaginaComponent,SolicitacaoComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AngularFireDatabaseModule, AngularFireModule.initializeApp(
+  imports: [BrowserModule, FormsModule, IonicModule.forRoot(), AppRoutingModule,AngularFireDatabaseModule, AngularFireModule.initializeApp(
     {
       apiKey: "AIzaSyB4PHop0TXppX9t38Wmz0kUURYEb9uSUaA",
       authDomain: "stif-c99ad.firebaseapp.com",

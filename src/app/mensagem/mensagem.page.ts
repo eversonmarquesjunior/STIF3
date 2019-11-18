@@ -39,8 +39,8 @@ variavelFiltro : string;
      inputs : [{
       placeholder : 'Insira Aqui',
       name : 'valorprompt',
-      
-      
+
+
      }],
      buttons : [{
         text : 'Ok',
@@ -61,9 +61,11 @@ variavelFiltro : string;
     component : PaginaComponent, componentProps : {
       'remetente' : aviso.adm.nome,
       'mensagem' : aviso.mensagem,
-      'key' : aviso.key
+      'key' : aviso.key,
+      'pai' : aviso.adm.pai,
+      'filho' : aviso.adm.filho
     }
-  
+
   });
   await expand.present();
 } else{

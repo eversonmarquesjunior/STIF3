@@ -26,7 +26,7 @@ export class CadastroPage implements OnInit {
   salvar(){
     this.autenticacao.auth.createUserWithEmailAndPassword(this.adm.email, this.adm.senha).then(
       () => {this.router.navigate(['home'])}).catch((erro) => this.mostrarMensagem());
-    this.banco.list("Administrador").push(this.adm);
+    this.banco.list("Responsavel").push(this.adm);
     this.adm = new Adm();
     this.router.navigate(['cadastro']);
   }
