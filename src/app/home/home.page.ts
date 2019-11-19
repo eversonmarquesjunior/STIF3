@@ -3,6 +3,7 @@ import {Adm} from '../adm/adm';
 import {AngularFireAuth} from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +13,9 @@ import { ToastController } from '@ionic/angular';
 export class HomePage {
   email : string;
   senha : string;
-  constructor(private autenticacao : AngularFireAuth, private router : Router, private mensagem : ToastController) {}
+  constructor(private autenticacao : AngularFireAuth, private router : Router, private mensagem : ToastController,private fire: AngularFireDatabase) {
+
+  }
   async mostrarMensagem(){
     const message = await this.mensagem.create({
       message : 'Ocorreu um erro, tente novamente',

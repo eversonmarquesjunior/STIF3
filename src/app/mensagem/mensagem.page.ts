@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 import { ModalController, AlertController } from '@ionic/angular';
 import { PaginaComponent } from '../pagina/pagina.component';
 import { SolicitacaoComponent } from '../solicitacao/solicitacao.component';
+import { AngularFireAuth } from 'angularfire2/auth';
 @Component({
   selector: 'app-mensagem',
   templateUrl: './mensagem.page.html',
@@ -16,86 +17,63 @@ import { SolicitacaoComponent } from '../solicitacao/solicitacao.component';
 })
 export class MensagemPage implements OnInit {
 
-  //tá meio feio daqui pra baixo, mas eu vou consertar :) -> Rafel
 
-listaAvisos : Observable<Aviso[]>;
-avisos : any;
-aviso : Aviso = new Aviso();
-listaFiltro : Aviso[];
-filtro = {}
-variavelFiltro : string;
+  listaAvisos: Observable<Aviso[]>;
 
+  variavel_mestre: string;
 
- constructor(private fire: AngularFireDatabase, private rota : Router, private modal : ModalController, private alert : AlertController) {
-  //this.filtrarInicio();
-  this.listaAvisos = this.fire.list<Aviso>('Mensagem').snapshotChanges().pipe(
-    map( lista => lista.map(linha => ({key : linha.payload.key, ... linha.payload.val()}))
-  ))
-  //this.filtrar(this.variavelFiltro);
- }
- /*async filtrarInicio(){
-   const fill = await this.alert.create({
-     header : 'Digite o seu Numero de telefone',
-     inputs : [{
-      placeholder : 'Insira Aqui',
-      name : 'valorprompt',
+  constructor(private fire: AngularFireDatabase, private rota: Router, private modal: ModalController, private alert: AlertController, private autenticacao: AngularFireAuth) {
+    let email = autenticacao.auth.currentUser.email
+    
+    this.fire.database.ref('Responsavel').orderByChild('email').equalTo(email).on("value", dadosFire => {
 
+      dadosFire.forEach(data => {
+        console.log(data.val().telefone);
+        this.variavel_mestre = data.val().telefone
+        console.log(this.variavel_mestre)
 
-     }],
-     buttons : [{
-        text : 'Ok',
-        handler : (inputs : {valorprompt : string}) => {
-          this.variavelFiltro = inputs.valorprompt;
-          console.log(this.variavelFiltro);
-        }
-     }]
-   });
-   await fill.present();
- }*/
-  excluir(aviso){
+        this.listaAvisos = this.fire.list<Aviso>('Mensagem', ref => ref.orderByChild('telefone').equalTo(this.variavel_mestre+"")).snapshotChanges().pipe(
+          map(lista => lista.map(linha => ({
+            key: linha.payload.key, ...
+            linha.payload.val()
+          }))));
+
+      });
+    });
+    
+   
+
+  }
+
+  excluir(aviso) {
     this.fire.list('Mensagem').remove(aviso.key)
   }
- async expandirMensagem(aviso){
-   if(aviso.tipo == "Aviso"){
-  const expand = await this.modal.create({
-    component : PaginaComponent, componentProps : {
-      'remetente' : aviso.adm.nome,
-      'mensagem' : aviso.mensagem,
-      'key' : aviso.key,
-      'pai' : aviso.adm.pai,
-      'filho' : aviso.adm.filho
-    }
-
-  });
-  await expand.present();
-} else{
+  async expandirMensagem(aviso) {
+    if (aviso.tipo == "Aviso") {
       const expand = await this.modal.create({
-        component : SolicitacaoComponent, componentProps : {
-          'remetente' : aviso.adm.nome,
-          'mensagem' : aviso.mensagem,
-          'key' : aviso.key
+        component: PaginaComponent, componentProps: {
+          'remetente': aviso.adm.nome,
+          'mensagem': aviso.mensagem,
+          'key': aviso.key,
+          'pai': aviso.adm.pai,
+          'filho': aviso.adm.filho
+        }
+
+      });
+      await expand.present();
+    } else {
+      const expand = await this.modal.create({
+        component: SolicitacaoComponent, componentProps: {
+          'remetente': aviso.adm.nome,
+          'mensagem': aviso.mensagem,
+          'key': aviso.key
         }
       });
       await expand.present();
-  }
+    }
 
   }
- ngOnInit() {
-  /* this.listaAvisos.subscribe(
-     aviso => {
-       this.avisos = aviso;
-       this.listaFiltro = _.filter(this.aviso, _.conforms(this.filtro));
-       this.aplicarFiltro();
-     }
-   )*/
- }
- /*private aplicarFiltro() {
-  this.listaFiltro = _.filter(this.aviso, _.conforms(this.filtro) )
-}
-*/
+  ngOnInit() {
 
-/*filtrar(variavelFiltro) {
-  this.filtro['aa'] = val => val == variavelFiltro;
-  this.aplicarFiltro();
-}*/
+  }
 }
