@@ -27,6 +27,10 @@ export class HomePage {
 entrar(){
   this.autenticacao.auth.signInWithEmailAndPassword(this.email, this.senha).then(
     () => {this.router.navigate(['mensagem'])}).catch((erro) => this.mostrarMensagem());
-    
+
 }
+redefinir() {
+   alert('verifique seu email');
+   this.afAuth.auth.sendPasswordResetEmail(this.cadastro.email).then(
+     () => alert('verifique seu email')); { this.router.navigate([]); }}
 }
