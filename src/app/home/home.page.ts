@@ -31,6 +31,6 @@ entrar(){
 }
 redefinir() {
    alert('verifique seu email');
-   this.afAuth.auth.sendPasswordResetEmail(this.cadastro.email).then(
+   this.autenticacao.auth.sendPasswordResetEmail(this.email).then(
      () => alert('verifique seu email')); { this.router.navigate([]); }}
 }

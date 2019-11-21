@@ -28,6 +28,6 @@ export class CadastroPage implements OnInit {
       () => {this.router.navigate(['home'])}).catch((erro) => this.mostrarMensagem());
     this.banco.list("Responsavel").push(this.adm);
     this.adm = new Adm();
-    this.router.navigate(['cadastro']);
+    //this.router.navigate(['cadastro']);
   }
 }

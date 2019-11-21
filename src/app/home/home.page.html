@@ -14,8 +14,6 @@
       <ion-input type="text" [(ngModel)] = "email"></ion-input>
     </ion-item>
 
-
-
     <ion-item>
       <ion-label position="floating"> Senha: </ion-label>
       <ion-input type="password" [(ngModel)] = "senha"></ion-input>
@@ -23,12 +21,12 @@
 
     <br />
 
-    <ion-button expand="block" color="primary" href = "cadastro">
-      <ion-text color="dark"> Cadastre-se </ion-text>
-    </ion-button>
-
     <ion-button expand="block" color="secondary" (click) = "entrar()">
       <ion-text color="dark"> Entrar </ion-text>
+    </ion-button>
+
+    <ion-button expand="block" color="primary" href = "cadastro">
+      <ion-text color="dark"> Cadastre-se </ion-text>
     </ion-button>
 
     <ion-button expand="block" color="tertiary">

@@ -17,14 +17,14 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class MensagemPage implements OnInit {
 
-
+  email : string;
   listaAvisos: Observable<Aviso[]>;
 
   variavel_mestre: string;
 
   constructor(private fire: AngularFireDatabase, private rota: Router, private modal: ModalController, private alert: AlertController, private autenticacao: AngularFireAuth) {
     let email = autenticacao.auth.currentUser.email
-    
+
     this.fire.database.ref('Responsavel').orderByChild('email').equalTo(email).on("value", dadosFire => {
 
       dadosFire.forEach(data => {
@@ -40,8 +40,8 @@ export class MensagemPage implements OnInit {
 
       });
     });
-    
-   
+
+
 
   }
 
